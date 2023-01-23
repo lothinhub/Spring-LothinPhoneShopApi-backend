@@ -1,22 +1,22 @@
 
-# server:
-#   port: 9000
-# spring:
-#   datasource:
-#     url: jdbc:postgresql://localhost:5432/lothinphoneshop
-#     username: postgres
-#     password: lothinny
-#   jpa:
-#     hibernate:
-#       ddl-auto: update
-#     properties:
-#         hibernate:
-#           dialect: org.hibernate.dialect.PostgreSQLDialect
-#   jackson:
-#     serialization:
-#       fail-on-empty-beans: false
-#   liquibase:
-#         change-log: classpath:db/changelog/db.changelog-master.yaml
+server:
+  port: 9000
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/lothinphoneshop
+    username: postgres
+    password: lothinny
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  liquibase:
+        change-log: classpath:db/changelog/db.changelog-master.yaml
 
       
       
