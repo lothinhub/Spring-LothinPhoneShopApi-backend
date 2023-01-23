@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lothin.phoneshp.dto.BrandDTO;
-import com.lothin.phoneshp.mapper.EntityMapper;
+import com.lothin.phoneshp.mapper.BrandMapper;
 import com.lothin.phoneshp.model.Brand;
 import com.lothin.phoneshp.service.BrandService;
 
@@ -27,7 +27,7 @@ public class BrandController {
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody BrandDTO brandDTO) {
-        Brand brand = EntityMapper.toBrand(brandDTO);
+        Brand brand = BrandMapper.INSTANCE.toEntity(brandDTO);
         brand = brandService.save(brand);
         return ResponseEntity.ok(brand);
     }
@@ -52,7 +52,7 @@ public class BrandController {
     public ResponseEntity<?> getAll() {
         List<BrandDTO> brandList = brandService.getAllBrands()
                 .stream()
-                .map(b -> EntityMapper.toBrandDTO(b))
+                .map(b -> BrandMapper.INSTANCE.toDTO(b))
                 // .toList();
                 .collect(Collectors.toList());
         return ResponseEntity.ok(brandList);
