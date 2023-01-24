@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lothin.phoneshp.dto.BrandDTO;
+import com.lothin.phoneshp.exception.ApiException;
 import com.lothin.phoneshp.mapper.BrandMapper;
 import com.lothin.phoneshp.model.Brand;
 import com.lothin.phoneshp.service.BrandService;
@@ -33,17 +34,17 @@ public class BrandController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> getById(@PathVariable("id") int id) {
+    public ResponseEntity<?> getById(@PathVariable("id") int id) throws ApiException {
         return ResponseEntity.ok(brandService.getById(id));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Brand> update(@PathVariable("id") int id, @RequestBody BrandDTO brandDTO) {
+    public ResponseEntity<Brand> update(@PathVariable("id") int id, @RequestBody BrandDTO brandDTO) throws ApiException {
         return ResponseEntity.ok(brandService.update(id, brandDTO));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<?> deleteById(@PathVariable("id") int id) {
+    public ResponseEntity<?> deleteById(@PathVariable("id") int id) throws ApiException {
         brandService.delete(id);
         return ResponseEntity.ok().build();
     }
@@ -53,7 +54,6 @@ public class BrandController {
         List<BrandDTO> brandList = brandService.getAllBrands()
                 .stream()
                 .map(b -> BrandMapper.INSTANCE.toDTO(b))
-                // .toList();
                 .collect(Collectors.toList());
         return ResponseEntity.ok(brandList);
     }
