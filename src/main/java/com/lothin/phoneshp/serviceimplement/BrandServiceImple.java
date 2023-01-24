@@ -1,19 +1,19 @@
 package com.lothin.phoneshp.serviceimplement;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 
 import com.lothin.phoneshp.dto.BrandDTO;
+import com.lothin.phoneshp.exception.ApiException;
 import com.lothin.phoneshp.model.Brand;
 import com.lothin.phoneshp.repository.BrandRepository;
 import com.lothin.phoneshp.service.BrandService;
 
 import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 @Service
 public class BrandServiceImple implements BrandService {
@@ -27,19 +27,16 @@ public class BrandServiceImple implements BrandService {
 
     @Override
     public Brand getById(Integer id) {
-        Optional<Brand> brand = brandRepository.findById(id);
-        if (brand.isPresent()) {
-            return brand.get();
-        } else {
-            throw new HttpClientErrorException(HttpStatus.NOT_FOUND, String.format("Not Found id=%d", id));
-        }
+        return brandRepository.findById(id)
+                .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, String.format("Brand Not Found id=%d", id)));
+        
     }
 
     @Override
     public Brand update(Integer id, BrandDTO dto) {
         Brand brand = getById(id);
         brand.setName(dto.getName());
-        brandRepository.save(brand);
+        brandRepository.save(brand);    
         return brand;
     }
 
