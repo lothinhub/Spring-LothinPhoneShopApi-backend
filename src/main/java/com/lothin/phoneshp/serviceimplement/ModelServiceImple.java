@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections4.MapUtils;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Order;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+// import org.springframework.data.domain.Sort;
+// import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
 import com.lothin.phoneshp.dto.ModelDTO;
@@ -17,6 +19,7 @@ import com.lothin.phoneshp.service.BrandService;
 import com.lothin.phoneshp.service.ModelService;
 import com.lothin.phoneshp.spec.ModelFilter;
 import com.lothin.phoneshp.spec.ModelSpec;
+import com.lothin.phoneshp.utils.PageUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -42,8 +45,31 @@ public class ModelServiceImple implements ModelService {
 
     }
 
+    // @Override
+    // public List<Model> getAllModels(Map<String, String> params) {
+    // ModelFilter modelFilter = new ModelFilter();
+    // if (params.containsKey("modelId")) {
+    // modelFilter.setBrandId(MapUtils.getInteger(params, "modelId"));
+    // }
+    // if (params.containsKey("modelName")) {
+    // modelFilter.setModelName(MapUtils.getString(params, "modelName"));
+    // }
+    // if (params.containsKey("brandId")) {
+    // modelFilter.setBrandId(MapUtils.getInteger(params, "brandId"));
+    // }
+    // if (params.containsKey("brandName")) {
+    // modelFilter.setBrandName(MapUtils.getString(params, "brandName"));
+    // }
+    // ModelSpec modelSpec = new ModelSpec(modelFilter);
+    // return modelRepository.findAll(modelSpec, Sort.by(Order.asc("id")));
+    // }
+    public List<Model> getAllModelsOld(Map<String, String> params) {
+        return null;
+    }
+
     @Override
-    public List<Model> getAllModels(Map<String, String> params) {
+    public Page<Model> getAllModels(Map<String, String> params) {
+        Pageable pageable = PageUtil.getPageable(params);
         ModelFilter modelFilter = new ModelFilter();
         if (params.containsKey("modelId")) {
             modelFilter.setBrandId(MapUtils.getInteger(params, "modelId"));
@@ -58,7 +84,12 @@ public class ModelServiceImple implements ModelService {
             modelFilter.setBrandName(MapUtils.getString(params, "brandName"));
         }
         ModelSpec modelSpec = new ModelSpec(modelFilter);
-        return modelRepository.findAll(modelSpec, Sort.by(Order.asc("id")));
+
+        Page<Model> page = modelRepository.findAll(modelSpec, pageable);
+
+        
+
+        return page;
     }
 
     // @Override
