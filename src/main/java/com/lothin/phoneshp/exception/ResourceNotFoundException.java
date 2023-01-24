@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import lombok.Getter;
 import lombok.Setter;
 
-@SuppressWarnings("serial")
 @Getter
 @Setter
 public class ResourceNotFoundException extends ApiException {
