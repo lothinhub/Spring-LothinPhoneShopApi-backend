@@ -12,13 +12,15 @@ import com.lothin.phoneshp.model.Brand;
 import com.lothin.phoneshp.repository.BrandRepository;
 import com.lothin.phoneshp.service.BrandService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class BrandServiceImple implements BrandService {
     @Autowired
-    private BrandRepository brandRepository;
+    private final BrandRepository brandRepository;
 
     @Override
     public Brand save(Brand entity) {
