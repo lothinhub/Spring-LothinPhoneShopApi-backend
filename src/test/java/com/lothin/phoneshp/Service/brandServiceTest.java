@@ -1,12 +1,10 @@
 package com.lothin.phoneshp.Service;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-// import static org.junit.jupiter.api.Assertions.assertEquals;
-// import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-// import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -15,10 +13,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-// import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
-// import org.mockito.stubbing.Answer;
 
+import com.lothin.phoneshp.exception.ApiException;
 import com.lothin.phoneshp.model.Brand;
 import com.lothin.phoneshp.repository.BrandRepository;
 import com.lothin.phoneshp.service.BrandService;
@@ -82,8 +79,17 @@ public class brandServiceTest {
         assertEquals("Apple", brandReturn.getName());
         assertEquals(1, brandReturn.getId());
     }
+
     @Test
     public void getByIdError() {
-
+        //given
+        
+        //when 
+        when(brandRepository.findById(102)).thenReturn(Optional.empty());
+        //then
+        
+        assertThatThrownBy(()->brandService.getById(102))
+        .isInstanceOf(ApiException.class)
+        .hasMessageStartingWith("Brand Not Found For id=");
     }
 }

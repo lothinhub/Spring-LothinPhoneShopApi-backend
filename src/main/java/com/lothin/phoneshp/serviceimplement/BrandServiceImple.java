@@ -30,7 +30,7 @@ public class BrandServiceImple implements BrandService {
     @Override
     public Brand getById(Integer id) {
         return brandRepository.findById(id)
-                .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, String.format("Brand Not Found id=%d", id)));
+                .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, String.format("Brand Not Found For id=%d", id)));
         
     }
 
