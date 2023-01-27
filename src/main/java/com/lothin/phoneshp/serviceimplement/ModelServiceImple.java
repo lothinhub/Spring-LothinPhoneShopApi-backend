@@ -10,12 +10,12 @@ import org.springframework.data.domain.Pageable;
 // import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
-import com.lothin.phoneshp.dto.ModelDTO;
+// import com.lothin.phoneshp.dto.ModelDTO;
 import com.lothin.phoneshp.exception.ResourceNotFoundException;
-import com.lothin.phoneshp.mapper.ModelMapper;
+// import com.lothin.phoneshp.mapper.ModelMapper;
 import com.lothin.phoneshp.model.Model;
 import com.lothin.phoneshp.repository.ModelRepository;
-import com.lothin.phoneshp.service.BrandService;
+// import com.lothin.phoneshp.service.BrandService;
 import com.lothin.phoneshp.service.ModelService;
 import com.lothin.phoneshp.spec.ModelFilter;
 import com.lothin.phoneshp.spec.ModelSpec;
@@ -27,15 +27,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ModelServiceImple implements ModelService {
     private final ModelRepository modelRepository;
-    private final BrandService brandService;
+    // private final BrandService brandService;
 
     @Override
-    public Model save(ModelDTO dto) {
-        Integer brandId = dto.getBrandDTO().getId();
-        brandService.getById(brandId);
+    public Model save(Model entity) {
+        //brandService.getById(entity.getBrand().getId());
 
-        Model model = ModelMapper.INSTANCE.toModel(dto);
-        return modelRepository.save(model);
+        // Model model = ModelMapper.INSTANCE.toModel(entity);
+
+        return modelRepository.save(entity);
     }
 
     @Override
@@ -86,8 +86,6 @@ public class ModelServiceImple implements ModelService {
         ModelSpec modelSpec = new ModelSpec(modelFilter);
 
         Page<Model> page = modelRepository.findAll(modelSpec, pageable);
-
-        
 
         return page;
     }

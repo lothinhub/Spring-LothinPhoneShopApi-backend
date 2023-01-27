@@ -2,11 +2,11 @@ package com.lothin.phoneshp.serviceimplement;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.lothin.phoneshp.dto.BrandDTO;
 import com.lothin.phoneshp.exception.ApiException;
 import com.lothin.phoneshp.model.Brand;
 import com.lothin.phoneshp.repository.BrandRepository;
@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class BrandServiceImple implements BrandService {
     @Autowired
     private final BrandRepository brandRepository;
-
+    // private Brand brand;
     @Override
     public Brand save(Brand entity) {
         return brandRepository.save(entity);
@@ -30,16 +30,18 @@ public class BrandServiceImple implements BrandService {
     @Override
     public Brand getById(Integer id) {
         return brandRepository.findById(id)
-                .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, String.format("Brand Not Found For id=%d", id)));
-        
+                .orElseThrow(
+                        () -> new ApiException(HttpStatus.NOT_FOUND, String.format("Brand Not Found For id=%d", id)));
+
     }
 
     @Override
-    public Brand update(Integer id, BrandDTO dto) {
-        Brand brand = getById(id);
-        brand.setName(dto.getName());
-        brandRepository.save(brand);    
-        return brand;
+    public Brand update(Integer id, Brand source) {
+        Brand target = getById(id);
+        // source.setId(id);
+        // BrandMapper.INSTANCE.update(target, source);
+        BeanUtils.copyProperties(source, target, "id");
+        return brandRepository.save(target);
     }
 
     @Override
