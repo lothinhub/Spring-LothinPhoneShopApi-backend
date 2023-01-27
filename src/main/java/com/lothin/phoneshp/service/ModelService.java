@@ -5,12 +5,11 @@ import java.util.Map;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import com.lothin.phoneshp.dto.ModelDTO;
 import com.lothin.phoneshp.model.Model;
 
 @Service
 public interface ModelService {
-    Model save(ModelDTO dto);
+    Model save(Model dto);
 
     Model getById(Integer id);
 

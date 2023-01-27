@@ -3,6 +3,7 @@ package com.lothin.phoneshp.controller;
 // import java.util.List;
 import java.util.Map;
 
+// import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.beans.BeanUtils;
 // import org.mapstruct.Mapper;
 import org.springframework.data.domain.Page;
@@ -32,10 +33,12 @@ import lombok.RequiredArgsConstructor;
 public class ModelController {
 
     private final ModelService modelService;
-
+    
+    private final ModelMapper modelMapper;
     @PostMapping
     public ResponseEntity<?> create(@RequestBody ModelDTO dto) throws ApiException {
-        Model model = modelService.save(dto);
+        Model model = modelMapper.toModel(dto);
+        model = modelService.save(model);
         ModelDTO modelDTO = ModelMapper.INSTANCE.toDTO(model);
         return ResponseEntity.ok(modelDTO);
     }
