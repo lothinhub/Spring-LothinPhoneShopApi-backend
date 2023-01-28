@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class BrandServiceImple implements BrandService {
     @Autowired
     private final BrandRepository brandRepository;
+
     // private Brand brand;
     @Override
     public Brand save(Brand entity) {
@@ -41,6 +42,7 @@ public class BrandServiceImple implements BrandService {
         // source.setId(id);
         // BrandMapper.INSTANCE.update(target, source);
         BeanUtils.copyProperties(source, target, "id");
+        // target.setName("Apple was updated");
         return brandRepository.save(target);
     }
 
@@ -53,6 +55,8 @@ public class BrandServiceImple implements BrandService {
 
     @Override
     public List<Brand> getAllBrands() {
+        // boolean ByName = brandRepository.existsByName("vivo");
+        // System.out.println(ByName);
         return brandRepository.findAll();
     }
 }
