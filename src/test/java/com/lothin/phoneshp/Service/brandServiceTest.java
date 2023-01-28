@@ -3,6 +3,7 @@ package com.lothin.phoneshp.Service;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -13,6 +14,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
@@ -31,6 +34,8 @@ public class brandServiceTest {
     private BrandRepository brandRepository;
     private BrandService brandService;
     private Brand brand;
+    @Captor
+    private ArgumentCaptor<Brand> brandCaptor;
 
     @BeforeEach
     public void setup() {
@@ -103,13 +108,16 @@ public class brandServiceTest {
     public void testUpdateBrand() {
 
         // given
-        Brand brandUpdate = new Brand(1, "Apple V");
+        Brand brandUpdate = new Brand(102, "Apple V");
         // when
         // when(brandRepository.findById(102)).thenReturn(Optional.of(fromDB));
         brandService.update(102, brandUpdate);
         // then
         // assertEquals(AfterUpdate.getName(), "Apple V");
-        verify(brandRepository, times(1)).save(brandUpdate);
+        verify(brandRepository,atMostOnce()).findById(102);
+        verify(brandRepository).save(brandCaptor.capture());
+        // verify(brandRepository, times(1)).save(brandUpdate);
+        assertEquals(brandCaptor.getValue().getName(), brandUpdate.getName());
     }
 
     @Test
