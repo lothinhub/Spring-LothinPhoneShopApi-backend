@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-// import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -20,10 +20,10 @@ public class brandRepositoryTest {
     @Autowired
     private BrandRepository brandRepository;
 
-    // @BeforeEach
-    // public void setUp() {
-    //     brandRepository.deleteAll();
-    // }
+    @BeforeEach
+    public void setUp() {
+        brandRepository.deleteAll();
+    }
 
     @Test
     public void existsByName() {
@@ -42,7 +42,7 @@ public class brandRepositoryTest {
     @Test
     public void testFindById() {
 
-        Brand brand1 = new Brand("Apple");
+        Brand brand1 = new Brand("Appple");
         Brand brand2 = new Brand("Samsung");
         brandRepository.save(brand1);
         brandRepository.save(brand2);
