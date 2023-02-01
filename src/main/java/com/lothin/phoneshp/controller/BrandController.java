@@ -3,7 +3,6 @@ package com.lothin.phoneshp.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +19,13 @@ import com.lothin.phoneshp.mapper.BrandMapper;
 import com.lothin.phoneshp.model.Brand;
 import com.lothin.phoneshp.service.BrandService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/brands")
+@RequiredArgsConstructor
 public class BrandController {
-    @Autowired
-    private BrandService brandService;
+    private final BrandService brandService;
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody BrandDTO brandDTO) {
