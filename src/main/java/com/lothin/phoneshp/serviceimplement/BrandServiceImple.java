@@ -49,7 +49,9 @@ public class BrandServiceImple implements BrandService {
     @Override
     public void delete(Integer id) {
         Brand brand = getById(id);
-        brandRepository.delete(brand);
+        // brandRepository.delete(brand);
+        brand.setActive(false);
+        brandRepository.save(brand);
         log.info("Brand with id =%d ".formatted(id));
     }
 
@@ -57,6 +59,6 @@ public class BrandServiceImple implements BrandService {
     public List<Brand> getAllBrands() {
         // boolean ByName = brandRepository.existsByName("vivo");
         // System.out.println(ByName);
-        return brandRepository.findAll();
+        return brandRepository.findByActiveTrue();
     }
 }

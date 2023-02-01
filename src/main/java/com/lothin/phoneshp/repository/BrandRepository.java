@@ -11,4 +11,7 @@ public interface BrandRepository extends JpaRepository<Brand, Integer> {
     boolean existsByName(String name);
 
     List<Brand> findByIdIn(List<Integer> ids);
+
+    // List<Brand> findByActive(boolean active);
+    List<Brand> findByActiveTrue();
 }

@@ -40,7 +40,7 @@ public class brandServiceTest {
     @BeforeEach
     public void setup() {
         brandService = new BrandServiceImple(brandRepository);
-        brand = new Brand(1, "Apple");
+        brand = new Brand(1, "Apple", null);
         when(brandRepository.findById(102)).thenReturn(Optional.of(brand));
     }
 
@@ -108,13 +108,13 @@ public class brandServiceTest {
     public void testUpdateBrand() {
 
         // given
-        Brand brandUpdate = new Brand(102, "Apple V");
+        Brand brandUpdate = new Brand(102, "Apple V", null);
         // when
         // when(brandRepository.findById(102)).thenReturn(Optional.of(fromDB));
         brandService.update(102, brandUpdate);
         // then
         // assertEquals(AfterUpdate.getName(), "Apple V");
-        verify(brandRepository,atMostOnce()).findById(102);
+        verify(brandRepository, atMostOnce()).findById(102);
         verify(brandRepository).save(brandCaptor.capture());
         // verify(brandRepository, times(1)).save(brandUpdate);
         assertEquals(brandCaptor.getValue().getName(), brandUpdate.getName());
@@ -122,18 +122,22 @@ public class brandServiceTest {
 
     @Test
     public void testDeleteBrand() {
-        Integer brandDelete = 102;
+        Integer brandDelete = 2;
         // Brand brand = new Brand(1, "Apple 2");
         // when(brandRepository.findById(1)).thenReturn(Optional.of(brand));
         brandService.delete(brandDelete);
-        verify(brandRepository, times(1)).delete(brand);
+
+        // verify(brandRepository, times(1)).save(brand);
+        verify(brandRepository).save(brandCaptor.capture());
+        assertEquals(false, brandCaptor.getValue().getActive());
+        verify(brandRepository, times(1)).save(brand);
     }
 
     @Test
     public void testListBrand() {
         List<Brand> brandlist = List.of(
-                new Brand(1, "Apple"),
-                new Brand(2, "Samsung"));
+                new Brand(1, "Apple", null),
+                new Brand(2, "Samsung", null));
         when(brandRepository.findAll()).thenReturn(brandlist);
         List<Brand> brandReturns = brandService.getAllBrands();
 

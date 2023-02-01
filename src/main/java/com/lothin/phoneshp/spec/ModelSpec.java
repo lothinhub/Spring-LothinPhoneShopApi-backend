@@ -13,7 +13,9 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.lang.Nullable;
 
 import com.lothin.phoneshp.model.Brand;
+import com.lothin.phoneshp.model.Brand_;
 import com.lothin.phoneshp.model.Model;
+import com.lothin.phoneshp.model.Model_;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,19 +30,19 @@ public class ModelSpec implements Specification<Model> {
         Join<Model, Brand> brand = model.join("brand");
 
         if (modelFilter.getModelId() != null) {
-            Predicate modelId = model.get("id").in(modelFilter.getModelId());
+            Predicate modelId = model.get(Model_.ID).in(modelFilter.getModelId());
             list.add(modelId);
         }
         if (modelFilter.getModelName() != null) {
-            Predicate modelName =  cb.like(model.get("name"), "%" + modelFilter.getModelName() + "%");
+            Predicate modelName = cb.like(model.get(Model_.NAME), "%" + modelFilter.getModelName() + "%");
             list.add(modelName);
         }
         if (modelFilter.getBrandId() != null) {
-            Predicate modelBrandId = model.get("id").in(modelFilter.getBrandId());
+            Predicate modelBrandId = model.get(Brand_.ID).in(modelFilter.getBrandId());
             list.add(modelBrandId);
         }
         if (modelFilter.getBrandName() != null) {
-            Predicate modelBrandName = cb.like(brand.get("name"), "%" + modelFilter.getBrandName() + "%");
+            Predicate modelBrandName = cb.like(brand.get(Brand_.NAME), "%" + modelFilter.getBrandName() + "%");
             list.add(modelBrandName);
         }
         Predicate[] predicates = list.toArray(Predicate[]::new);
