@@ -7,10 +7,10 @@ import com.lothin.phoneshp.exception.ResourceNotFoundException;
 import com.lothin.phoneshp.model.Color;
 import com.lothin.phoneshp.repository.ColorRepository;
 import com.lothin.phoneshp.service.ColorService;
-import lombok.extern.slf4j.Slf4j;
+// import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 @Service
-@Slf4j
+// @Slf4j
 @RequiredArgsConstructor
 public class ColorServiceImple implements ColorService {
     @Autowired

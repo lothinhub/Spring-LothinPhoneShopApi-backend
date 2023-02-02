@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.lothin.phoneshp.dto.ProductDTO2;
+// import com.lothin.phoneshp.dto.ProductDTO2;
 import com.lothin.phoneshp.dto.PriceDTO;
 import com.lothin.phoneshp.dto.PageDTO;
 import com.lothin.phoneshp.mapper.ProductMapper;

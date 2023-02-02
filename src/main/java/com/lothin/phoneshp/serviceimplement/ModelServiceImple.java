@@ -31,9 +31,6 @@ public class ModelServiceImple implements ModelService {
 
     @Override
     public Model save(Model entity) {
-        // brandService.getById(entity.getBrand().getId());
-
-        // Model model = ModelMapper.INSTANCE.toModel(entity);
 
         return modelRepository.save(entity);
     }
@@ -43,28 +40,6 @@ public class ModelServiceImple implements ModelService {
         return modelRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Model", id));
 
-    }
-
-    // @Override
-    // public List<Model> getAllModels(Map<String, String> params) {
-    // ModelFilter modelFilter = new ModelFilter();
-    // if (params.containsKey("modelId")) {
-    // modelFilter.setBrandId(MapUtils.getInteger(params, "modelId"));
-    // }
-    // if (params.containsKey("modelName")) {
-    // modelFilter.setModelName(MapUtils.getString(params, "modelName"));
-    // }
-    // if (params.containsKey("brandId")) {
-    // modelFilter.setBrandId(MapUtils.getInteger(params, "brandId"));
-    // }
-    // if (params.containsKey("brandName")) {
-    // modelFilter.setBrandName(MapUtils.getString(params, "brandName"));
-    // }
-    // ModelSpec modelSpec = new ModelSpec(modelFilter);
-    // return modelRepository.findAll(modelSpec, Sort.by(Order.asc("id")));
-    // }
-    public List<Model> getAllModelsOld(Map<String, String> params) {
-        return null;
     }
 
     @Override
