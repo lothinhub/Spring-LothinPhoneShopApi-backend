@@ -5,7 +5,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import com.lothin.phoneshp.dto.ModelDTO;
-// import com.lothin.phoneshp.model.Brand;
 import com.lothin.phoneshp.model.Model;
 import com.lothin.phoneshp.service.BrandService;
 

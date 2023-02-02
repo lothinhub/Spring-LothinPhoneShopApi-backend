@@ -29,7 +29,7 @@ import com.lothin.phoneshp.repository.ProductImportHistoryRepository;
 import com.lothin.phoneshp.repository.ProductRepository;
 import com.lothin.phoneshp.service.ProductService;
 import com.lothin.phoneshp.spec.ProductSpec;
-import com.lothin.phoneshp.utils.PageUtil;
+import com.lothin.phoneshp.utils.PageUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -92,7 +92,7 @@ public class ProductServiceImple implements ProductService {
 
     @Override
     public Page<Product> getProducts(Map<String, String> params) {
-        Pageable pageable = PageUtil.getPageable(params);
+        Pageable pageable = PageUtils.getPageable(params);
         return productRepository.findAll(new ProductSpec(), pageable);
     }
 

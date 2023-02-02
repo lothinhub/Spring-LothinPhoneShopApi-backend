@@ -24,6 +24,7 @@ public class Brand {
     private Long id;
     private String name;
     private Boolean active;
+    
     public Brand(String name) {
         this.name = name;
     }

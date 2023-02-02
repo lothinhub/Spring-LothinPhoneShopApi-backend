@@ -9,9 +9,9 @@ import com.lothin.phoneshp.model.Model;
 
 @Service
 public interface ModelService {
-    Model save(Model dto);
+    Model save(Model entity);
 
     Model getById(Long id);
 
-    Page<Model> getAllModels(Map<String, String> params);
+    Page<Model> getModels(Map<String, String> params);
 }

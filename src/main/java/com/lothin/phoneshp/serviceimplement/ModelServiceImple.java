@@ -1,6 +1,5 @@
 package com.lothin.phoneshp.serviceimplement;
 
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections4.MapUtils;
@@ -19,7 +18,7 @@ import com.lothin.phoneshp.repository.ModelRepository;
 import com.lothin.phoneshp.service.ModelService;
 import com.lothin.phoneshp.spec.ModelFilter;
 import com.lothin.phoneshp.spec.ModelSpec;
-import com.lothin.phoneshp.utils.PageUtil;
+import com.lothin.phoneshp.utils.PageUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -43,8 +42,8 @@ public class ModelServiceImple implements ModelService {
     }
 
     @Override
-    public Page<Model> getAllModels(Map<String, String> params) {
-        Pageable pageable = PageUtil.getPageable(params);
+    public Page<Model> getModels(Map<String, String> params) {
+        Pageable pageable = PageUtils.getPageable(params);
 
         ModelFilter modelFilter = new ModelFilter();
         if (params.containsKey("modelId")) {

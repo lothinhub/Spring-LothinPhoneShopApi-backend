@@ -19,6 +19,7 @@ import com.lothin.phoneshp.model.Model_;
 
 import lombok.RequiredArgsConstructor;
 
+@SuppressWarnings("serial")
 @RequiredArgsConstructor
 public class ModelSpec implements Specification<Model> {
     private final ModelFilter modelFilter;
@@ -27,8 +28,8 @@ public class ModelSpec implements Specification<Model> {
     @Nullable
     public Predicate toPredicate(Root<Model> model, CriteriaQuery<?> query, CriteriaBuilder cb) {
         List<Predicate> list = new ArrayList<>();
-        Join<Model, Brand> brand = model.join("brand");
 
+        Join<Model, Brand> brand = model.join("brand");
         if (modelFilter.getModelId() != null) {
             Predicate modelId = model.get(Model_.ID).in(modelFilter.getModelId());
             list.add(modelId);
@@ -38,12 +39,12 @@ public class ModelSpec implements Specification<Model> {
             list.add(modelName);
         }
         if (modelFilter.getBrandId() != null) {
-            Predicate modelBrandId = model.get(Brand_.ID).in(modelFilter.getBrandId());
-            list.add(modelBrandId);
+            Predicate brandId = brand.get("id").in(modelFilter.getBrandId());
+            list.add(brandId);
         }
         if (modelFilter.getBrandName() != null) {
-            Predicate modelBrandName = cb.like(brand.get(Brand_.NAME), "%" + modelFilter.getBrandName() + "%");
-            list.add(modelBrandName);
+            Predicate brandName = cb.like(brand.get(Brand_.NAME), "%" + modelFilter.getBrandName() + "%");
+            list.add(brandName);
         }
         Predicate[] predicates = list.toArray(Predicate[]::new);
         return cb.and(predicates);

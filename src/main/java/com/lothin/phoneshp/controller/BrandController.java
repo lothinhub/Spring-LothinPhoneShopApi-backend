@@ -40,7 +40,8 @@ public class BrandController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Brand> update(@PathVariable("id") Long id, @RequestBody BrandDTO brandDTO) throws ApiException {
+    public ResponseEntity<Brand> update(@PathVariable("id") Long id, @RequestBody BrandDTO brandDTO)
+            throws ApiException {
         Brand brand = BrandMapper.INSTANCE.toEntity(brandDTO);
         return ResponseEntity.ok(brandService.update(id, brand));
     }

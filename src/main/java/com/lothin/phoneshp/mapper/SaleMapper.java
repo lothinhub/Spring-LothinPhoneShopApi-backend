@@ -14,7 +14,6 @@ import com.lothin.phoneshp.model.SaleDetail;
 import com.lothin.phoneshp.service.ProductService;
 
 @Mapper(componentModel = "spring", uses = { ProductService.class })
-
 public interface SaleMapper {
 
 	@Mapping(target = "soldDate", expression = "java(toLocalDateTime(dto.getSoldDate()))")

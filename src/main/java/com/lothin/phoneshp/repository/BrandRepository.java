@@ -1,11 +1,11 @@
 package com.lothin.phoneshp.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+// import org.springframework.stereotype.Repository;
 import com.lothin.phoneshp.model.Brand;
 
 import java.util.List;
-@Repository
+// @Repository
 public interface BrandRepository extends JpaRepository<Brand, Long> {
 
     boolean existsByName(String name);

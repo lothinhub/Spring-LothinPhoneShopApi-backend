@@ -35,5 +35,5 @@ public class ProductImportHistory {
     private BigDecimal pricePerUnit;
 
     @Column(name = "import_unit")
-    private Long importUnit;
+    private Integer importUnit;
 }

@@ -47,7 +47,7 @@ public class ModelController {
 	
 	@GetMapping
 	public ResponseEntity<?> getModelList(@RequestParam Map<String, String> params){
-		Page<Model> page = modelService.getAllModels(params);
+		Page<Model> page = modelService.getModels(params);
 		
 		PageDTO dto = PageMapper.INSTANCE.toDTO(page);
 		dto.setList(page.get().map(ModelEntityMapper.INSTANCE::toDTO).toList());
