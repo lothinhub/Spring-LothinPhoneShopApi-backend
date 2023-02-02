@@ -29,7 +29,7 @@ public class BrandServiceImple implements BrandService {
     }
 
     @Override
-    public Brand getById(Integer id) {
+    public Brand getById(Long id) {
         return brandRepository.findById(id)
                 .orElseThrow(
                         () -> new ApiException(HttpStatus.NOT_FOUND, String.format("Brand Not Found For id=%d", id)));
@@ -37,17 +37,17 @@ public class BrandServiceImple implements BrandService {
     }
 
     @Override
-    public Brand update(Integer id, Brand source) {
-        Brand target = getById(id);
-        // source.setId(id);
-        // BrandMapper.INSTANCE.update(target, source);
-        BeanUtils.copyProperties(source, target, "id");
-        // target.setName("Apple was updated");
-        return brandRepository.save(target);
-    }
+	public Brand update(Long id, Brand source) {
+		Brand target = getById(id);
+		// source.setId(id);
+		// BrandMapper.INSTANCE.update(target, source);
+		BeanUtils.copyProperties(source, target, "id");
+		// target.setName("Apple was update");
+		return brandRepository.save(target);
+	}
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         Brand brand = getById(id);
         // brandRepository.delete(brand);
         brand.setActive(false);
@@ -56,7 +56,7 @@ public class BrandServiceImple implements BrandService {
     }
 
     @Override
-    public List<Brand> getAllBrands() {
+    public List<Brand> getBrands() {
         // boolean ByName = brandRepository.existsByName("vivo");
         // System.out.println(ByName);
         return brandRepository.findByActiveTrue();

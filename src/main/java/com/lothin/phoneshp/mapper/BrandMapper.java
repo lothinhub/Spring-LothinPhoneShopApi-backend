@@ -15,5 +15,5 @@ public interface BrandMapper {
 
     BrandDTO toDTO(Brand entity);
 
-    void update(@MappingTarget Brand target, Brand resource);
+    void update(@MappingTarget Brand target, Brand source);
 }

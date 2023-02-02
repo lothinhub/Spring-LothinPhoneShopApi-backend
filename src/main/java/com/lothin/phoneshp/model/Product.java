@@ -1,52 +1,48 @@
 package com.lothin.phoneshp.model;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.DecimalMin;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Table(name = "products")
 @Entity
-public class Product {
+@Table(name = "products", uniqueConstraints = { @UniqueConstraint(columnNames = { "model_id", "color_id" }) })
+@Data
+public class Product extends AuditEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @NotBlank(message = "${cannot.be.blank}")
+    private Long id;
+
+    @NotBlank(message = "{cannot.be.blank}")
     @Column(name = "name")
     private String name;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "model_id")
     private Model model;
-    @NotNull(message = "${required.Field}")
-    @Column(name = "year_made")
-    private Short yearMade;
-    // @ManyToOne
-    // @JoinColumn(name = "color_id")
-    // private Color color;
-    @DecimalMin(value = "0.000001")
-    @Column(name = "import_price")
-    private double importPrice;
+
+    @ManyToOne
+    @JoinColumn(name = "color_id")
+    private Color color;
+
     @Column(name = "sale_price")
-    private double salePrice;
-    @Column(name = "import_date")
-    private LocalDate importDate;
-    // private Integer numberOfUnit;
+    private BigDecimal salePrice;
+
+    @Column(name = "available_unit")
+    private Integer availableUnit;
+
     @Column(name = "image_path")
     private String imagePath;
 }
