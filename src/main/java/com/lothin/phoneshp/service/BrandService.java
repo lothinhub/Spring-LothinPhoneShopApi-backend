@@ -10,8 +10,8 @@ import com.lothin.phoneshp.model.Brand;
 @Service
 public interface BrandService {
     Brand save(Brand entity);
-    Brand getById(Integer id);
-    Brand update(Integer id , Brand brand);
-    void delete(Integer id);
-    List<Brand> getAllBrands();
+    Brand getById(Long id);
+    Brand update(Long id , Brand brand);
+    void delete(Long id);
+    List<Brand> getBrands();
 }

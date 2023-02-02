@@ -31,7 +31,7 @@ public class ModelServiceImple implements ModelService {
 
     @Override
     public Model save(Model entity) {
-        //brandService.getById(entity.getBrand().getId());
+        // brandService.getById(entity.getBrand().getId());
 
         // Model model = ModelMapper.INSTANCE.toModel(entity);
 
@@ -39,7 +39,7 @@ public class ModelServiceImple implements ModelService {
     }
 
     @Override
-    public Model getById(Integer id) {
+    public Model getById(Long id) {
         return modelRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Model", id));
 
@@ -70,69 +70,25 @@ public class ModelServiceImple implements ModelService {
     @Override
     public Page<Model> getAllModels(Map<String, String> params) {
         Pageable pageable = PageUtil.getPageable(params);
+
         ModelFilter modelFilter = new ModelFilter();
         if (params.containsKey("modelId")) {
-            modelFilter.setBrandId(MapUtils.getInteger(params, "modelId"));
+            modelFilter.setModelId(MapUtils.getLong(params, "modelId"));
         }
         if (params.containsKey("modelName")) {
             modelFilter.setModelName(MapUtils.getString(params, "modelName"));
         }
         if (params.containsKey("brandId")) {
-            modelFilter.setBrandId(MapUtils.getInteger(params, "brandId"));
+            modelFilter.setBrandId(MapUtils.getLong(params, "brandId"));
         }
         if (params.containsKey("brandName")) {
             modelFilter.setBrandName(MapUtils.getString(params, "brandName"));
         }
+
         ModelSpec modelSpec = new ModelSpec(modelFilter);
 
         Page<Model> page = modelRepository.findAll(modelSpec, pageable);
-
         return page;
     }
-
-    // @Override
-    // public List<Model> getAllModels(Map<String, String> params) {
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Specification<Model> specification = new Specification<Model>() {
-    // @Override
-    // @Nullable
-    // public Predicate toPredicate(Root<Model> model, CriteriaQuery<?> query,
-    // CriteriaBuilder cb) {
-    // if (params.containsKey("name")) {
-    // String modelName = params.get("name");
-    // Predicate predicatename = cb.like(model.get("name"), "%" + modelName + "%");
-    // return predicatename;
-    // }
-    // return null;
-    // }
-    // };
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Specification<Model> specification = (Root<Model> model, CriteriaQuery<?>
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////// query,
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////// CriteriaBuilder
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////// cb)
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////// ->
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////// {
-    // if (params.containsKey("name")) {
-    // String modelName = params.get("name");
-    // Predicate predicatename = cb.like(model.get("name"), "%" + modelName + "%");
-    // return predicatename;
-    // }
-    // return null;
-    // };
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Specification<Model> specification = ( model, query, cb) -> {
-    // if (params.containsKey("name")) {
-    // String modelName = params.get("name");
-    // Predicate predicatename = cb.like(model.get("name"), "%" + modelName + "%");
-    // return predicatename;
-    // }
-    // return null;
-    // };
-    // List<Model> list =
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////// modelRepository.findAll(specification,Sort.by(Order.asc("id")));
-    // return list;
-    // }
 
 }

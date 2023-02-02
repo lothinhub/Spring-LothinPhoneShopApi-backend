@@ -11,7 +11,7 @@ import com.lothin.phoneshp.model.Model;
 public interface ModelService {
     Model save(Model dto);
 
-    Model getById(Integer id);
+    Model getById(Long id);
 
     Page<Model> getAllModels(Map<String, String> params);
 }
